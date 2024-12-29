@@ -86,3 +86,26 @@ jobs:
             az logout
             az cache purge
             az account clear
+
+Destroy-Environment:
+  runs-on: ubuntu-latest
+  if: github.event.label.name == 'destroy environment'
+  name: Destroy Azure Environment
+  steps:
+    - name: "Login via Azure CLI"
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Destroy resources
+      run: |
+        az webapp delete --name ${{env.AZURE_WEBAPP_NAME}} --resource-group cd-with-actions
+        az group delete --name cd-with-actions --yes --no-wait
+
+    - name: Azure logout via Azure CLI
+      uses: azure/CLI@v2
+      with:
+        inlineScript: |
+          az logout
+          az cache purge
+          az account clear

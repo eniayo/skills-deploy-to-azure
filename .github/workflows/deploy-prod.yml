@@ -72,16 +72,17 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - uses: azure/docker-login@v1
         with:
-          login-server: ${{env.IMAGE_REGISTRY_URL}}
+          login-server: ${{ env.IMAGE_REGISTRY_URL }}
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
       - name: Deploy web app container
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{env.AZURE_WEBAPP_NAME}}
-          images: ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{github.sha}}
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          images: ${{ env.IMAGE_REGISTRY_URL }}/${{ github.repository }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
       - name: Log deployment URL
-        run: echo "Deployment URL: https://${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net"
+        run: |
+          echo "Deployment URL: https://${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net"
       - name: Azure logout via Azure CLI
         uses: azure/CLI@v2
         with:
@@ -90,9 +91,10 @@ jobs:
             az cache purge
             az account clear
 
-  Destroy-Environment:
+
+    Destroy-Environment:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'destroy environment' }}
+    if: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'destroy environment') }}
     name: Destroy Azure Environment
     steps:
       - name: "Login via Azure CLI"

@@ -80,6 +80,8 @@ jobs:
         with:
           app-name: ${{env.AZURE_WEBAPP_NAME}}
           images: ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{github.sha}}
+      - name: Log deployment URL
+        run: echo "Deployment URL: https://${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net"
       - name: Azure logout via Azure CLI
         uses: azure/CLI@v2
         with:

@@ -50,7 +50,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}
+          images: ${{ env.IMAGE_REGISTRY_URL }}/${{ github.repository }}/${{ env.DOCKER_IMAGE_NAME }}
           tags: |
             type=sha,format=long,prefix=
       - name: Build and push Docker image
@@ -91,10 +91,9 @@ jobs:
             az cache purge
             az account clear
 
-
-    Destroy-Environment:
+  Destroy-Environment:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'destroy environment') }}
+    if: ${{ github.event.label.name == 'destroy environment' }}
     name: Destroy Azure Environment
     steps:
       - name: "Login via Azure CLI"

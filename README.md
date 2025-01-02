@@ -14,11 +14,16 @@ _Create two deployment workflows using GitHub Actions and Microsoft Azure._
 </header>
 
 <!--
+<<<<<<< HEAD
   <<< Author notes: Step 3 >>>
+=======
+  <<< Author notes: Step 6 >>>
+>>>>>>> c39999ff32c7126c50d9885f501bb471f6e80ef3
   Start this step by acknowledging the previous step.
   Define terms and link to docs.github.com.
 -->
 
+<<<<<<< HEAD
 ## Step 3: Spin up an environment based on labels
 
 _Nicely done! :heart:_
@@ -157,6 +162,25 @@ The second job destroys Azure resources so that you do not use your free minutes
 1. Back in the Pull request, create and apply the `spin up environment` label to your open pull request
 1. Wait for the GitHub Actions workflow to run and spin up your Azure environment. You can follow along in the Actions tab or in the pull request merge box.
 1. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+=======
+## Step 6: Production deployment
+
+_Nice work! :sparkle:_
+
+Great work, you've done it! You should be able to see your container image in the **Packages** section of your account on the main repository page. You can get the deployment URL in the Actions log, just like the staging URL.
+
+### The cloud environment
+
+Throughout the course you've spun up resources that, if left unattended, could incur billing or consume your free minutes from the cloud provider. Once you have verified your application in production, let's tear down those environments so that you can keep your minutes for more learning!
+
+### :keyboard: Activity 1: Destroy any running resources so you don't incur charges
+
+1. Create and apply the `destroy environment` label to your merged `production-deployment-workflow` pull request. If you have already closed the tab with your pull request, you can open it again by clicking **Pull requests** and then clicking the **Closed** filter to view merged pull requests.
+
+Now that you've applied the proper label, let's wait for the GitHub Actions workflow to complete. When it's finished, you can confirm that your environment has been destroyed by visiting your app's URL, or by logging into the Azure portal to see it is not running.
+
+2. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
+>>>>>>> c39999ff32c7126c50d9885f501bb471f6e80ef3
 
 <footer>
 
